@@ -1,10 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 139.129.52.80
-Source Server Version : 50716
-Source Host           : 139.129.52.80:3306
-Source Database       : LuckyCore
+
 
 Target Server Type    : MYSQL
 Target Server Version : 50716
