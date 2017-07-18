@@ -1,0 +1,69 @@
+﻿
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"]
+{
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+  /* Hide captions */
+  .carousel-caption {
+    display: none
+  }
+}
+ul.pagination {
+    margin: 0 0 1rem
+}
+
+    ul.pagination .current {
+        padding: 0.1875rem 0.625rem;
+        background: #2199e8;
+        color: #fefefe;
+        cursor: default
+    }
+
+    ul.pagination .pagination-next a:after {
+        content: '';
+        display: inline-block;
+        margin-left: 0.5rem
+    }
+
+    ul.pagination .pagination-previous a:before {
+        content: '';
+        display: inline-block;
+        margin-right: 0.5rem
+    }
+
+    ul.pagination li {
+        display: inline-block
+    }
+
+        ul.pagination li .show-for-sr {
+            display: none
+        }
+
+        ul.pagination li a {
+            color: #0a0a0a;
+            display: block;
+            padding: 0.1875rem 0.625rem;
+            border-radius: 0
+        }
+
+            ul.pagination li a:hover {
+                background: #e6e6e6
+            }

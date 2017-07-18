@@ -1,0 +1,105 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Property Name="EntityNameSpace" Default="LiteCode" Optional="False" Type="System.String" Category="Style" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="幸运草工作室 @ CopyRight 2006-2011" Optional="True" Category="项目说明" Description="版权信息" %>
+// =================================================================== 
+// 项目说明
+//====================================================================
+// <%=ProjectCopyRight%>
+// 文件： <%= SourceTable.Name%>Entity.cs
+// 项目名称：<%=ProjectDescription%> 
+// 创建时间：<%=DateTime.Now.ToShortDateString()%>
+// 负责人：<%=ProjectManager%>
+// ===================================================================
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+namespace <%= EntityNameSpace %>.Entity
+{
+	/// <summary>
+	///<%= GetClassName(SourceTable)%>数据实体
+	/// </summary>
+	[Serializable]
+	 [Table("<%= GetClassName(SourceTable)%>")]
+	public partial class <%= GetClassName(SourceTable)%>
+	{
+		#region 变量定义
+		<% foreach (ColumnSchema column in SourceTable.Columns) { %>
+		///<summary>
+		///<%=column.Description %>
+		///</summary>
+		<%= GetMemberVariableDeclarationStatement(column) %>
+		<% } %>
+		
+		#endregion
+		
+		#region 构造函数
+		public <%= GetClassName(SourceTable)%>()
+        {
+            
+           
+        }
+		
+		///<summary>
+		///<%=SourceTable.Description %>
+		///</summary>
+		public <%= GetClassName(SourceTable)%>
+		(
+			<%= GetConstructorParameters(SourceTable) %>
+		)
+		{
+			<%= GetAssignValue(SourceTable) %>
+		}
+		#endregion
+		
+		#region 公共属性
+		<% for (int i = 0; i < SourceTable.Columns.Count; i++) { %>
+		///<summary>
+		///<%=SourceTable.Columns[i].Description %>
+		///</summary>
+		public <%= GetCSharpVariableType(SourceTable.Columns[i]) %> <%= SourceTable.Columns[i].Name %>
+		{
+			get {return <%= GetMemberVariableName(SourceTable.Columns[i]) %>;}
+			set {<%= GetMemberVariableName(SourceTable.Columns[i]) %> = value;}
+		}
+		<% if (i < SourceTable.Columns.Count - 1) Response.Write("\r\n"); %>	
+		<%}%>
+	
+		#endregion
+		
+		#region 基类重载
+		
+		///<summary>
+		/// Returns a String that represents the current object.
+		///</summary>
+		public override string ToString()
+		{
+			<%ColumnSchemaCollection cols = SourceTable.Columns;%>
+			return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+				"{<%=cols.Count+1%>}{<%=cols.Count%>}<% for (int x=0; x < cols.Count; x++) { Response.Write("- " + GetPropertyName(cols[x]) + ": {" + x + "}{" + cols.Count + "}" ); } %>", 
+			<%for (int x=0; x < cols.Count; x++)
+			  {
+			    if ( cols[x].AllowDBNull )
+				{%>
+				(this.<%=GetPropertyName(cols[x])%> == null) ? string.Empty : this.<%=GetPropertyName(cols[x])%>.ToString(),
+				<%} else { %>
+				this.<%= GetPropertyName(cols[x]) %>,
+			<% } 
+			}  %>
+				System.Environment.NewLine, 
+				this.GetType()
+				);
+		}
+		
+		#endregion
+
+	}
+	
+}

@@ -1,0 +1,47 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceViews" Type="SchemaExplorer.ViewSchemaCollection" Category="Context" Description="Table that the object is based on." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Property Name="EntityNameSpace" Default="SharpCode" Optional="False" Type="System.String" Category="Style" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="瘦草工作室 @ CopyRight 2007-2008" Optional="True" Category="项目说明" Description="版权信息" %>
+
+using System;
+using SharpCode.Core.EntityBase;
+
+namespace <%= EntityNameSpace %>.Entity
+{
+	<%for(int i=0;i<SourceViews.Count;i++){%>
+	public class <%= GetClassNameView(SourceViews[i])%>Map : EntityTypeConfiguration< <%=GetClassNameView(SourceViews[i])%>>
+	{
+		#region 构造函数
+		///<summary>
+		///<%=SourceViews[i].Description %>
+		///</summary>
+		public <%= GetClassNameView(SourceViews[i])%>Map()
+		{
+			this.HasKey(c => new {});
+            this.ToTable("<%= GetClassNameView(SourceViews[i])%>");
+		}
+		
+		#endregion
+	}	
+	<%}%>
+	<%for(int i=0;i<SourceViews.Count;i++){%>
+	 modelBuilder.Configurations.Add(new <%= GetClassNameView(SourceViews[i])%>Map());
+	<%}%>
+	
+	
+	<%for(int i=0;i<SourceViews.Count;i++){%>
+	 IDbSet< <%= GetClassNameView(SourceViews[i])%>> <%= GetClassNameView(SourceViews[i])%>Context { get; set; }
+	<%}%>
+	
+	
+	<%for(int i=0;i<SourceViews.Count;i++){%>
+	public IDbSet< <%= GetClassNameView(SourceViews[i])%>> <%= GetClassNameView(SourceViews[i])%>Context { get; set; }
+	<%}%>
+}

@@ -1,0 +1,27 @@
+﻿@addTagHelper *, LuckyCode.WebFrameWork
+@{
+    Layout = "_LayoutTest";
+    ViewData["Title"] = "测试页面";
+}
+@model LuckyCode.ViewModels.News.ArticleViewModel
+@*注释的Razor扩展方法和TagHelper呈现的结果是一致的*@
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label asp-for="Title">普通</label>
+            <ss:textbox for="Title" placeholder="请输入内容" a="1" b="2" id="sss" class="your-class"></ss:textbox>
+            @*@Html.SSTextBox(t=>t.Title,"asd").Configure(t=>t.PlaceHolder= "请输入内容")*@
+        </div>
+        <div class="form-group">
+            <label asp-for="Author">网址</label>
+            <ss:textbox for="Author" placeholder="网站地址" addon="http://"></ss:textbox>
+           @* @Html.SSTextBox(t=>t.Author).Configure(t => { t.PlaceHolder = "网站地址";t.Addon= "http://"; })*@
+        </div>
+        <div class="form-group">
+            <label asp-for="Title">体重</label>
+            <ss:textbox for="Title" placeholder="体重" addon="kg" addon-position="Right"></ss:textbox>
+        </div>
+    </form>
+   
+</div>
+

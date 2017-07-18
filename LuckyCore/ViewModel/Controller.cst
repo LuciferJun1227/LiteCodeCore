@@ -1,0 +1,102 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Property Name="EntityNameSpace" Default="LiteCode" Optional="False" Type="System.String" Category="Style" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="幸运草工作室 @ CopyRight 2013-2014" Optional="True" Category="项目说明" Description="版权信息" %>
+// =================================================================== 
+// 项目说明
+//====================================================================
+// <%=ProjectCopyRight%>
+// 文件： <%= SourceTable.Name%>Entity.cs
+// 项目名称：<%=ProjectDescription%> 
+// 创建时间：<%=DateTime.Now.ToShortDateString()%>
+// 负责人：<%=ProjectManager%>
+// ===================================================================
+         
+         public class <%=GetClassName(SourceTable)%>Controller : Controller
+    {
+        private I<%=GetClassName(SourceTable)%>Service _<%=GetCamelCaseName(SourceTable.Name)%>Service;
+        private ILogger _logger;
+        public <%=GetClassName(SourceTable)%>Controller(I<%=GetClassName(SourceTable)%>Service <%=GetCamelCaseName(SourceTable.Name)%>Service,ILogger< <%=GetClassName(SourceTable)%>Controller> logger)
+        {
+            _logger = logger;
+            _<%=GetCamelCaseName(SourceTable.Name)%>Service = <%=GetCamelCaseName(SourceTable.Name)%>Service;
+        }
+        // GET: Category
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> GetListViewModel(int pageIndex, int pageSize)
+        {
+            var page =await _<%=GetCamelCaseName(SourceTable.Name)%>Service.GetPagedListAsync(pageIndex,pageSize);
+            return Json(new TableViewModel<<%=GetClassName(SourceTable)%>ViewModel>() {Rows = page,Total = page.TotalCount});
+        }
+
+        public ActionResult Create()
+        {
+            var model=new <%=GetClassName(SourceTable)%>ViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Create(<%=GetClassName(SourceTable)%>ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _<%=GetCamelCaseName(SourceTable.Name)%>Service.AddAsync(model);
+                    return Redirect("/SiteManager/<%=GetClassName(SourceTable)%>/Index");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message);
+                }
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var model =await _<%=GetCamelCaseName(SourceTable.Name)%>Service.Get<%=GetClassName(SourceTable)%>ViewModelAsync(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit(<%=GetClassName(SourceTable)%>ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _<%=GetCamelCaseName(SourceTable.Name)%>Service.Update(model);
+                    return Redirect("/SiteManager/<%=GetClassName(SourceTable)%>/Index");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message);
+                }
+            }
+            return View();
+        }
+
+        public IActionResult Delete(string id)
+        {
+             try
+            {
+                _<%=GetCamelCaseName(SourceTable.Name)%>Service.Delete(id);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+            return Json(false);
+        }
+    }

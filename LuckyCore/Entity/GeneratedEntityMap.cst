@@ -1,0 +1,45 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  ResponseEncoding="UTF-8"  Debug="True" Description="Template description here." %>
+<%@ Property Name="Tables" Type="SchemaExplorer.TableSchemaCollection" Category="表" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %> 
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Design" %>
+
+<%@ Property Name="EntityNameSpace" Default="LiteCode" Optional="False" Type="System.String" Category="名称空间" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="幸运草工作室 @ CopyRight 2006-2014" Optional="True" Category="项目说明" Description="版权信息" %>
+        
+        <%for (int i = 0; i < Tables.Count; i++){ %>
+        public static Func<Lucky.Hr.Core.IDataReader, <%= GetClassName(Tables[i])%>> <%= GetClassName(Tables[i])%>MapperFunc=(Lucky.Hr.Core.IDataReader dr)=>
+      {
+         <%= GetClassName(Tables[i])%> entity=new <%= GetClassName(Tables[i])%>();
+		<% for (int a = 0; a < Tables[i].Columns.Count; a++) { %>
+		entity.<%= Tables[i].Columns[a].Name %>=dr.<%=GetReaderMethod(Tables[i].Columns[a])%>("<%= Tables[i].Columns[a].Name %>");
+		<%}%>
+         return entity;
+      };
+       public static Action<Lucky.Hr.Core.IDataReader, <%= GetClassName(Tables[i])%>> <%= GetClassName(Tables[i])%>MapperAction=(Lucky.Hr.Core.IDataReader dr,<%= GetClassName(Tables[i])%> entity)=>
+      {
+          
+		<% for (int a = 0; a < Tables[i].Columns.Count; a++) { %>
+		entity.<%= Tables[i].Columns[a].Name %>=dr.<%=GetReaderMethod(Tables[i].Columns[a])%>("<%= Tables[i].Columns[a].Name %>");
+		<%}%>
+        
+      };
+    
+   public static Action<IList<<%= GetClassName(Tables[i])%>>, Lucky.Hr.Core.IDataReader> <%= GetClassName(Tables[i])%>MapperToList=(IList<<%= GetClassName(Tables[i])%>> list,Lucky.Hr.Core.IDataReader dr)=>
+      {
+          <%= GetClassName(Tables[i])%> entity = new <%= GetClassName(Tables[i])%>();
+		<% for (int a = 0; a < Tables[i].Columns.Count; a++) { %>
+		entity.<%= Tables[i].Columns[a].Name %>=dr.<%=GetReaderMethod(Tables[i].Columns[a])%>("<%= Tables[i].Columns[a].Name %>");
+		<%}%>
+        list.Add(entity);
+      };
+     <%} %> 
+ 

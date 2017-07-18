@@ -1,0 +1,91 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Property Name="EntityNameSpace" Default="SharpCode" Optional="False" Type="System.String" Category="Style" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="瘦草工作室 @ CopyRight 2007-2008" Optional="True" Category="项目说明" Description="版权信息" %>
+// =================================================================== 
+// 项目说明
+//====================================================================
+// <%=ProjectCopyRight%>。
+// 文件： <%= SourceView.Name%>Entity.cs
+// 项目名称：<%=ProjectDescription%> 
+// 创建时间：<%=DateTime.Now.ToShortDateString()%>
+// 负责人：<%=ProjectManager%>
+// ===================================================================
+using System;
+using SharpCode.Core.EntityBase;
+using SubSonic.SqlGeneration.Schema;
+namespace <%= EntityNameSpace %>.Entity
+{
+	/// <summary>
+	///<%= GetClassNameView(SourceView)%>数据实体
+	/// </summary>
+	[Serializable]
+	[SharpCodeView("<%= GetClassNameView(SourceView)%>")]
+	public class <%= GetClassNameView(SourceView)%> : ViewEntityBase
+	{
+		#region 变量定义
+		<% foreach (ViewColumnSchema column in SourceView.Columns) { %>
+		///<summary>
+		///<%=column.Description %>
+		///</summary>
+		<%= GetMemberVariableDeclarationStatementView(column) %>
+		<% } %>
+		
+		#endregion
+		
+		#region 构造函数
+		///<summary>
+		///<%=SourceView.Description %>
+		///</summary>
+		public <%= GetClassNameView(SourceView)%>()
+		{
+		}
+		
+		#endregion
+		
+		#region 公共属性
+		
+		<% for (int i = 0; i < SourceView.Columns.Count; i++) { %>
+		///<summary>
+		///<%=SourceView.Columns[i].Description %>
+		///</summary>
+		public <%= GetCSharpVariableTypeView(SourceView.Columns[i]) %> <%= SourceView.Columns[i].Name %>
+		{
+			get {return <%= GetMemberVariableNameView(SourceView.Columns[i]) %>;}
+			set { <%= GetMemberVariableNameView(SourceView.Columns[i]) %>=value;}
+		}
+		<% if (i < SourceView.Columns.Count - 1) Response.Write("\r\n"); %>	
+		<%}%>
+	
+		#endregion
+		
+		#region 基类重载
+		public override string DataBaseName()
+		{ 
+			return "<%=SourceView.Database.Name%>";
+		}
+		public override string TableName()
+        {
+             return "<%= GetClassNameView(SourceView)%>"; 
+        }
+		
+		#endregion
+		
+	}
+	#region 视图枚举
+	public enum <%= GetClassNameView(SourceView)%>Enum
+	{
+		<% for (int i = 0; i < SourceView.Columns.Count; i++) { %>
+		<%= SourceView.Columns[i].Name %><% if (i < SourceView.Columns.Count - 1) Response.Write(","); %>
+		<% if (i < SourceView.Columns.Count - 1) Response.Write("\r\n"); %>	
+		<%}%>
+	}
+	#endregion
+}

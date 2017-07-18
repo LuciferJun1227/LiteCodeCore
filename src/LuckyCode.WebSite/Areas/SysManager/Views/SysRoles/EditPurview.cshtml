@@ -1,0 +1,108 @@
+﻿@using System.Threading.Tasks
+@using LuckyCode.ViewModels.SiteManager
+
+@model SysRoleModuleViewModel
+@{
+    ViewBag.Title = "角色权限分配";
+    List<string> cNames = ViewBag.ModuleControllers as List<string>;
+    List<SysRoleModulePurviewViewModel> purviewsList = ViewBag.PurViewSum as List<SysRoleModulePurviewViewModel>;
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            角色权限分配
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/SysManager/Home"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">角色权限分配</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3>@Model.RoleName</h3>
+                    </div>
+                    <form class="form-horizontal" method="post" action="">
+                        <div class="box-body">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(a => a.RoleId)
+
+
+                            @foreach (var module in Model.ModuleBases.Where(a => a.ControllerName == ""))
+                            {
+
+                                <h3 style="background-color: #d4d4d4">@module.ModuleName</h3>
+                                if (cNames != null)
+                                {
+                                    foreach (var cn in cNames)
+                                    {
+                                        var moduleBasess = Model.ModuleBases.Where(b => b.ControllerName == cn && b.ParentId == module.Id && b.ModuleType == 0).ToList();
+                                        if (moduleBasess.Any())
+                                        {
+                                            <div class="form-group">
+
+                                                @foreach (SysModuleBase moduleBase in moduleBasess)
+                                                {
+                                                    <label class="col-md-2 control-label check-label" style="padding-top: 0px;">
+                                                        @moduleBase.ModuleName
+                                                    </label>
+                                                }
+                                                <div class="col-md-10 rule-multi-checkbox">
+                                                    @foreach (SysModuleBase moduleBase in Model.ModuleBases.Where(b => b.ControllerName == cn && b.ParentId == module.Id))
+                                                    {
+                                                        if (purviewsList != null)
+                                                        {
+                                                            var purview = purviewsList.FirstOrDefault(a => a.ControllerName == moduleBase.ControllerName);
+                                                            if (purview != null && (purview.PurviewSum & moduleBase.PurviewSum) == moduleBase.PurviewSum)
+                                                            {
+                                                                @:<input checked="checked" type='checkbox' class="minimal" name='@moduleBase.ControllerName' value='@moduleBase.PurviewSum'>
+                                                                <label>
+                                                                    @moduleBase.ModuleName
+                                                                </label>
+                                                            }
+                                                            else
+                                                            {
+                                                                @:<input type='checkbox' class="minimal" name='@moduleBase.ControllerName' value='@moduleBase.PurviewSum'>
+                                                                <label>
+                                                                    @moduleBase.ModuleName
+                                                                </label>
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+
+                            }
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-offset-3">
+                                <button type="submit" class="btn btn-flat btn-success btn-padding">保存</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section scripts{
+    <script type="text/javascript">
+       // $('.rule-multi-checkbox').multiCheckbox();
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_flat-green'
+        });
+    </script>
+}

@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "部门管理";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            部门管理
+           
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/SysManager/Home"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">部门管理</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <a href="/SysManager/SysDepartment/Create" class="btn btn-success btn-sm btn-flat "><i class="glyphicon glyphicon-plus"></i>添加</a>
+                        <div class="form-inline pull-right">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                       
+                        <table id="Sys_DataGrid"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section scripts{
+    
+<script src="~/js/pages/SysDepartment.js"></script>
+}

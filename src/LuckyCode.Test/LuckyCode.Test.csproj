@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>LuckyCode.Test</AssemblyName>
+    <PackageId>LuckyCode.Test</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LuckyCode.Core\LuckyCode.Core.csproj" />
+    <ProjectReference Include="..\LuckyCode.Data\LuckyCode.Data.csproj" />
+    <ProjectReference Include="..\LuckyCode.Entity\LuckyCode.Entity.csproj" />
+    <ProjectReference Include="..\LuckyCode.IService\LuckyCode.IService.csproj" />
+    <ProjectReference Include="..\LuckyCode.Service\LuckyCode.Service.csproj" />
+    <ProjectReference Include="..\LuckyCode.ViewModels\LuckyCode.ViewModels.csproj" />
+    <ProjectReference Include="..\LuckyCode.WebFrameWork\LuckyCode.WebFrameWork.csproj" />
+  </ItemGroup>
+
+</Project>

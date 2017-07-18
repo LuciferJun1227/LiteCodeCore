@@ -1,0 +1,83 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="StoredProcedures" Type="SchemaExplorer.CommandSchema" Category="Database" Description="Stored procedure(s) from which to extract descriptions" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Property Name="EntityNameSpace" Default="Shoucao" Optional="False" Type="System.String" Category="Style" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="瘦草工作室 @ CopyRight 2007-2011" Optional="True" Category="项目说明" Description="版权信息" %>
+// =================================================================== 
+// 项目说明
+//====================================================================
+// <%=ProjectCopyRight%>。
+// 文件： <%=StoredProcedures.Name%>>Entity.cs
+// 项目名称：<%=ProjectDescription%> 
+// 创建时间：<%=DateTime.Now.ToShortDateString()%>
+// 负责人：<%=ProjectManager%>
+// ===================================================================
+using System;
+using System.Data;
+using SubSonic.Schema;
+using SubSonic.DataProviders;
+namespace <%= EntityNameSpace %>.Entity
+{
+	/// <summary>
+	//<%=StoredProcedures.Name%>数据实体
+	/// </summary>
+	[Serializable]
+	public class <%=StoredProcedures.Name%>Entity : StoredProcedure
+	{
+		#region 变量定义
+		
+		<%foreach(ParameterSchema perameter in StoredProcedures.InputParameters){%>
+		///<summary>
+		///
+		///</summary>
+		<%= GetMemberVariableDeclarationStatementProc(perameter) %>
+		<% } %>
+		
+		#endregion
+		
+		#region 构造函数
+		///<summary>
+		///
+		///</summary>
+		public <%=StoredProcedures.Name%>Entity(<%=GetProcConstructorParameters(StoredProcedures)%>):base(ProcName(),ProviderFactory.GetProvider(DataBaseName()))
+		{
+			<%=GetProcAssignValue(StoredProcedures)%>
+			<%foreach(ParameterSchema perameter in StoredProcedures.InputParameters){%>
+			Command.AddParameter("<%=perameter.Name%>",<%=GetMemberVariableNameProc(perameter)%>,DbType.<%=perameter.DataType%>);
+			<%}%>
+		}
+		
+		#endregion
+		
+		#region 公共属性
+		public static string DataBaseName()
+		{ 
+			return "<%=StoredProcedures.Database.Name%>";
+		}
+		public static string ProcName()
+		{
+			 return "<%=StoredProcedures.Name%>";
+		}
+		<% for (int i = 0; i < StoredProcedures.InputParameters.Count; i++) { %>
+		///<summary>
+		///
+		///</summary>
+		
+		public <%= GetCSharpVariableTypeProc(StoredProcedures.InputParameters[i]) %> <%=ProcEntityProperty( StoredProcedures.InputParameters[i]) %>
+		{
+			get {return <%= GetMemberVariableNameProc(StoredProcedures.InputParameters[i]) %>;}
+			
+		}
+		<% if (i < StoredProcedures.InputParameters.Count - 1) Response.Write("\r\n"); %>	
+		<%}%>
+	
+		#endregion
+	}
+	
+}

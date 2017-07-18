@@ -1,0 +1,16 @@
+﻿@using System.Threading.Tasks
+@using LuckyCode.ViewModels.SiteManager
+@model LuckyCode.ViewModels.SiteManager.SysApplicationViewModel
+<div class="form-group">
+    <label class="col-sm-2 control-label">名称</label>
+    <div class="col-sm-10 ">
+        @Html.TextBoxFor(a => a.ApplicationName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.ApplicationName)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">应用地址</label>
+    <div class="col-sm-10 ">
+        @Html.TextBoxFor(a => a.ApplicationUrl, new { @class = "form-control" })
+    </div>
+</div>

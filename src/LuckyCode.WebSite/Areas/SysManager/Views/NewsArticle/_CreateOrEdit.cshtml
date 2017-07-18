@@ -1,0 +1,110 @@
+﻿@using LuckyCode.ViewModels.News
+@using LuckyCode.WebFrameWork.HtmlExtensions
+@model LuckyCode.ViewModels.News.ArticleViewModel
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListTreeFor(model => model.CategoryId,Model.CategoryEntities,"0",true,  new { @class = "form-control"  })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Source, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KeyWord, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KeyWord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.KeyWord, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+
+        
+
+       
+@*
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsImage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 rule-multi-checkbox">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsImage)
+                @Html.ValidationMessageFor(model => model.IsImage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>*@
+
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticleText, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.ArticleText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ArticleText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       <div class="form-group">
+    @Html.LabelFor(model => model.IsTop, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 rule-multi-checkbox">
+       
+            @Html.EditorFor(model => model.IsTop)
+            @Html.ValidationMessageFor(model => model.IsTop, "", new { @class = "text-danger" })
+       
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.IsHot, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 rule-multi-checkbox">
+        
+            @Html.EditorFor(model => model.IsHot)
+            @Html.ValidationMessageFor(model => model.IsHot, "", new { @class = "text-danger" })
+        
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IsLock, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 rule-multi-checkbox">
+       
+            @Html.EditorFor(model => model.IsLock)
+            @Html.ValidationMessageFor(model => model.IsLock, "", new { @class = "text-danger" })
+        
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div id="jquery-wrapped-fine-uploader"></div>
+        @Html.HiddenFor(model => model.ImgUrl, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ImgUrl, "", new { @class = "text-danger" })
+    </div>
+</div>

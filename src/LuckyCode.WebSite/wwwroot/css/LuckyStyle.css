@@ -1,0 +1,485 @@
+﻿.display-hide, .display-none {
+    display: none;
+}
+.panel-default {
+    border: none;
+    border-radius: 0px;
+    margin-bottom: 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.panel-default>.panel-heading {
+    color: #777;
+    background-color: #fff;
+    border-color: #e6e6e6;
+    padding: 10px 10px;
+}
+
+.panel-default>.panel-body {
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.panel-default>.panel-body ul {
+    overflow: hidden;
+    padding: 0;
+    margin: 0px;
+    margin-top: -5px;
+}
+
+.panel-default>.panel-body ul li {
+    line-height: 27px;
+    list-style-type: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.panel-default>.panel-body ul li .time {
+    color: #a1a1a1;
+    float: right;
+    padding-right: 5px;
+}
+
+.dashboard-stats {
+    float: left;
+    width: 20%;
+}
+
+.dashboard-stats-item {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    cursor: pointer;
+    height: 105px;
+    margin-right: 25px;
+    margin-bottom: 10px;
+    padding: 20px 20px;
+}
+
+.dashboard-stats-item .m-top-none {
+    margin-top: 2px;
+}
+
+.dashboard-stats-item h2 {
+    font-size: 35px;
+    font-family: inherit;
+    line-height: 1.1;
+    font-weight: 500;
+}
+
+.dashboard-stats-item h5 {
+    font-size: 14px;
+    font-family: inherit;
+    margin-top: 3px;
+    line-height: 1.1;
+}
+
+.dashboard-stats-item .stat-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    opacity: .3;
+}
+
+.dashboard-stats i.fa.stats-icon {
+    width: 50px;
+    padding: 20px;
+    font-size: 50px;
+    text-align: center;
+    color: #fff;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.content-header {
+    position: relative;
+    
+    background-color: #f5f5f5;
+    min-height: 41px;
+    display: block;
+}
+
+.box-search {
+    margin-bottom: 5px;
+    border-top: 0px;
+}
+
+.box-search .box-body {
+    padding: 5px;
+}
+
+.box-search .form-group {
+    margin-bottom: 0px;
+}
+
+.btn-padding {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.field-validation-error {
+    color: #b94a48;
+    display: inline-block;
+    *display: inline;
+    padding-left: 5px;
+    vertical-align: middle;
+    *zoom: 1;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    color: #ff3333;
+    border-color: #ff3333;
+}
+
+.input-validation-error:focus {
+    border-color: #ff3333;
+    -webkit-box-shadow: 0 0 6px #d59392;
+    -moz-box-shadow: 0 0 6px #d59392;
+    box-shadow: 0 0 6px #d59392;
+}
+
+.validation-summary-errors {
+    /*font-weight: bold;*/
+    color: #ff3333;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+table tr td i.fa {
+    font-size: 150%;
+}
+table tr td i.glyphicon {
+     font-size: 120%;
+}
+table tr td i.fa-unlock {
+    color: #00a65a;
+    vertical-align: middle;
+    margin-top: -1px;
+    margin-left: -3px;
+    height: 15px;
+}
+
+table tr td i.fa-lock,table tr td i.glyphicon-ban-circle {
+    color: #ff3333;
+    vertical-align: middle;
+    margin-top: -1px;
+    margin-left: -3px;
+    height: 15px;
+}
+
+table tr td i.fa-toggle-on,table tr td i.glyphicon-ok {
+    color: #00a65a;
+    font-size: 150%;
+    vertical-align: middle;
+    margin-top: -1px;
+    margin-left: -3px;
+    height: 15px;
+}
+
+table tr td i.fa-toggle-off {
+    color: #999;
+    font-size: 150%;
+    vertical-align: middle;
+    margin-top: -1px;
+    margin-left: -3px;
+    height: 15px;
+}
+
+.multi-radio {
+    display: inline-block;
+    vertical-align: middle;
+    *display: inline;
+}
+
+.multi-radio:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.multi-radio .boxwrap {
+    display: inline-block;
+    vertical-align: middle;
+    *display: inline;
+}
+
+.multi-radio a {
+    display: inline-block;
+    margin-right: -1px;
+    float: left;
+    padding: 5px 15px;
+    line-height: 20px;
+    border: 1px solid #cccccc;
+    vertical-align: middle;
+    color: #333;
+    font-size: 100%;
+    cursor: pointer;
+}
+
+.multi-radio a:hover {
+    background: #C9E1EF;
+    text-decoration: none;
+}
+
+.multi-radio a:active {
+    text-decoration: none;
+}
+
+.multi-radio a.selected {
+    background: #00a65a;
+    border-color: #00a65a;
+    color: #fff;
+}
+
+/*单项选择*/
+.single-checkbox{ display:inline-block; vertical-align:middle; cursor:pointer; *display:inline; }
+.single-checkbox a,.single-checkbox a:visited{ display:inline-block; border:1px solid #d4d4d4; background:#d4d4d4; width:80px; vertical-align:middle; text-decoration:none; }
+.single-checkbox a i{ display:block; width:50%; height:28px; line-height:28px; font-style:normal; background:#fff; color:#333; text-align:center; }
+.single-checkbox a i.on{ float:right; display:none; }
+.single-checkbox a i.off{ float:left; display:block; }
+.single-checkbox a.selected{ border:1px solid #00a65a; background:#00a65a; }
+.single-checkbox a.selected i.on{ display:block; }
+.single-checkbox a.selected i.off{ display:none; }
+/*多项选择*/
+.multi-checkbox{ display:inline-block; vertical-align:middle; }
+.multi-checkbox:after{ clear:both; content:"."; display:block; height:0; visibility:hidden; }
+.multi-checkbox .boxwrap{ display:inline-block; vertical-align:middle; }
+.multi-checkbox a{ display:inline-block; float:left; margin-right:-1px; padding:5px 15px;  line-height:20px; border:1px solid #d4d4d4; vertical-align:middle; color:#333; font-size:100%; cursor:pointer; white-space:nowrap; text-overflow:ellipsis; }
+.multi-checkbox a:hover{ background:#C9E1EF; text-decoration:none; }
+.multi-checkbox a:active{ text-decoration:none; }
+.multi-checkbox a.selected{ background:#00a65a; border-color:#00a65a; color:#fff;border: 1px solid #d4d4d4 }
+/**Nestable list*/
+.dd {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.dd-list {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dd-list .dd-list {
+    padding-left: 30px;
+}
+
+.dd-collapsed .dd-list {
+    display: none;
+}
+
+.dd-item,
+.dd-empty,
+.dd-placeholder {
+    width: 300px;
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    min-height: 20px;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.dd-handle {
+    width: 300px;
+    display: block;
+    margin: 5px 0;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #bfd1eb;
+    background-color: #f3faff;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.dd-handle span {
+    font-weight: bold;
+}
+
+.dd-handle:hover {
+    background: #fff9ed;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dd-item > button {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    width: 25px;
+    height: 20px;
+    margin: 5px 0;
+    padding: 0;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dd-item > button:before {
+    content: '+';
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    text-indent: 0;
+}
+
+.dd-item > button[data-action="collapse"]:before {
+    content: '-';
+}
+
+
+.dd-placeholder,
+.dd-empty {
+    margin: 5px 0;
+    padding: 0;
+    min-height: 30px;
+    background: #f2fbff;
+    border: 1px dashed #b6bcbf;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.dd-empty {
+    border: 1px dashed #bbb;
+    min-height: 100px;
+    background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff), -webkit-linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff);
+    background-image: linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff), linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+.dd-dragel {
+    position: absolute;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.dd-dragel > .dd-item .dd-handle {
+    margin-top: 0;
+}
+
+.dd-dragel .dd-handle {
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+/**
+* Nestable Extras
+*/
+
+.nestable-lists {
+    display: block;
+    clear: both;
+    padding: 30px 0;
+    width: 100%;
+    border: 0;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}
+
+#nestable-menu {
+    padding: 0;
+    margin: 10px 0 20px 0;
+}
+
+#nestable-output,
+#nestable2-output {
+    width: 100%;
+    font-size: 0.75em;
+    line-height: 1.333333em;
+    font-family: lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
+    padding: 5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+#nestable2 .dd-handle {
+    color: inherit;
+    border: 1px dashed #e7eaec;
+    background: #f3f3f4;
+    padding: 10px;
+}
+
+#nestable2 .dd-handle:hover {
+    /*background: #bbb;*/
+}
+
+#nestable2 span.label {
+    margin-right: 10px;
+}
+
+#nestable-output,
+#nestable2-output {
+    font-size: 12px;
+    padding: 25px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.box-body h3{ background: #ddd; font-size: 18px; line-height: 36px; padding-left: 10px}
+.check-label {
+    color: #33a7b2
+}
+.rule-multi-checkbox label{ width: 100px; font-weight:normal
+}
+.rule-multi-checkbox .icheckbox_square-green {
+    background: #fff;
+    border: 1px solid #33a7b2;
+    width: 16px;
+    height: 16px
+}
+.rule-multi-checkbox .checked {
+    background: url(../lib/iCheck/flat/20170707111253.png) no-repeat 0 0;
+    background-size: contain;
+}
+.skip-00 {
+    line-height: 35px;
+    margin: 0 10px;
+    color: #428bca;
+}
+
+.skip-01 {
+    display: inline-block;
+    padding: 6px;
+    height: 30px;
+    width: 38px;
+    border: 1px solid #367fa9;
+    border-radius: 0px 4px 4px 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.skip-02 {
+    margin-top: -2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 30px;
+}

@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "应用程序管理";
+}
+@model LuckyCode.Core.PagedList<LuckyCode.ViewModels.SiteManager.SysApplicationViewModel>
+<div class="content-wrapper" id="applicationApp">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            应用程序
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/SysManager/Home"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">应用程序</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-success">
+                    <div class="box-header btn-group">
+                        <a href="/SysManager/SysApplication/Create" class="btn bg-maroon btn-sm btn-flat "><i class="glyphicon glyphicon-plus"></i>添加</a>
+                    </div>
+                    <div class="box-body">
+                        <table id="Sys_DataGrid" class="table table-hover table-striped table-bordered">
+                            <tr>
+                                <th>应用名称</th>
+                                <th>链接</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                            @foreach (var m in Model)
+                            {
+                                <tr >
+                                    <td>@m.ApplicationName</td>
+                                    <td>@m.ApplicationUrl</td>
+                                    <td>@m.CreateTime</td>
+                                    <td>
+                                        <a class='btn btn-flat btn-xs btn-info'><i class='glyphicon glyphicon-pencil'></i>编辑</a>
+                                        <a class='btn btn-flat btn-xs btn-warning'><i class='glyphicon glyphicon-remove'></i>删除</a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                        <nav>
+                            <pager total-count="@Model.TotalCount" page-size="5" info="@ViewBag.Full" route="/SysManager/SysApplication/TestPager"></pager>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

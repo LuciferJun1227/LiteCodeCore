@@ -1,0 +1,82 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="Tables" Type="SchemaExplorer.TableSchemaCollection" Category="表" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %> 
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Design" %>
+
+
+<%@ Property Name="EntityNameSpace" Default="LiteCode" Optional="False" Type="System.String" Category="名称空间" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="幸运草工作室 @ CopyRight 2006-2014" Optional="True" Category="项目说明" Description="版权信息" %>
+
+<%for(int i=0;i<Tables.Count;i++){ %>
+
+    public interface I<%=GetClassName(Tables[i])%>Service
+    {
+        void Delete(string id);
+        Task< <%=GetClassName(Tables[i])%>ViewModel> AddAsync(<%=GetClassName(Tables[i])%>ViewModel model);
+        <%=GetClassName(Tables[i])%>ViewModel Update(<%=GetClassName(Tables[i])%>ViewModel model);
+        Task<PagedList<<%=GetClassName(Tables[i])%>ViewModel>> GetPagedListAsync(int pageIndex, int pageSize);
+        Task<<%=GetClassName(Tables[i])%>ViewModel> Get<%=GetClassName(Tables[i])%>ViewModelAsync(string id);
+       // List<ListItemEntity> AppItemEntities();
+    }
+     public class <%=GetClassName(Tables[i])%>Service : I<%=GetClassName(Tables[i])%>Service
+    {
+        private ILiteCodeContext _context;
+        private IRepository<<%=GetClassName(Tables[i])%>Entity> _repository;
+        private ILogger _logger;
+        public <%=GetClassName(Tables[i])%>Service(IRepository<<%=GetClassName(Tables[i])%>Entity> repository,ILiteCodeContext context,ILogger<<%=GetClassName(Tables[i])%>Service> logger )
+        {
+            _repository = repository;
+             _context = context;
+            _logger = logger;
+        }
+        public void Delete(string id)
+        {
+           _repository.Delete(id);
+        }
+
+        public async Task<<%=GetClassName(Tables[i])%>ViewModel> Get<%=GetClassName(Tables[i])%>ViewModelAsync(string id)
+        {
+            var entity =await _repository.SingleAsync(a => a.Id == id);
+            return entity.ToModel();
+        }
+        public async Task<PagedList< <%=GetClassName(Tables[i])%>ViewModel>> GetPagedListAsync(int pageIndex, int pageSize)
+        {
+            return await _repository.Query()
+                    .ProjectTo<<%=GetClassName(Tables[i])%>ViewModel>(AutoMapperConfiguration.MapperConfiguration)
+                    .OrderByDescending(a => a.CreateTime)
+                    .ToPagedListAsync(pageIndex, pageSize);
+               
+        }
+        public async Task<<%=GetClassName(Tables[i])%>ViewModel> AddAsync(<%=GetClassName(Tables[i])%>ViewModel model)
+        {
+            var entity = model.ToEntity();
+            entity.Id = SequenceQueue.NewIdString("");
+            entity.CreateTime=DateTime.Now;
+            await _repository.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return model;
+        }
+
+        public <%=GetClassName(Tables[i])%>ViewModel Update(<%=GetClassName(Tables[i])%>ViewModel model)
+        {
+            var entity = model.ToEntity();
+            _repository.Update(entity);
+            return model;
+        }
+    }
+    
+<%} %>
+
+<%for(int i=0;i<Tables.Count;i++){ %>
+ services.AddScoped<I<%=GetClassName(Tables[i])%>Service, <%=GetClassName(Tables[i])%>Service>();
+
+<%} %>

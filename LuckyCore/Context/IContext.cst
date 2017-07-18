@@ -1,0 +1,57 @@
+﻿<%@ CodeTemplate Src="..\CommonSqlCode.cs" Inherits="Shoucao.Templates.CommonSqlCode" Language="C#" TargetLanguage="C#" Description="The interface that each business object of the domain implements." ResponseEncoding="UTF-8"%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#"  ResponseEncoding="UTF-8" Description="Generates a very simple business object." %>
+<%@ Property Name="Tables" Type="SchemaExplorer.TableSchemaCollection" Category="表" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Property Name="EntityNameSpace" Default="LiteCode" Optional="False" Type="System.String" Category="Style" Description="Object Namespace." %>
+<%@ Property Name="ProjectManager" Type="System.String" Default="丁富升" Optional="True" Category="项目说明" Description="项目负责人" %>
+<%@ Property Name="ProjectDescription" Type="System.String" Default="" Optional="True" Category="项目说明" Description="项目说明" %>
+<%@ Property Name="ProjectCopyRight" Type="System.String" Default="幸运草工作室 @ CopyRight 2006-2010" Optional="True" Category="项目说明" Description="版权信息" %>
+#region IContext
+<%
+for(int i=0;i<Tables.Count;i++){
+%>
+ IDbSet< <%=GetClassName(Tables[i])%>> <%=GetClassName(Tables[i])%>Context { get; set; }
+<%}%>
+#endregion
+
+#region 
+<%
+for(int i=0;i<Tables.Count;i++){
+%>
+ modelBuilder.Configurations.Add(new <%=GetClassName(Tables[i])%>Configuration());
+<%}%>
+#endregion
+
+
+#region 数据表集合
+<%
+for(int i=0;i<Tables.Count;i++){
+%>
+public  IDbSet< <%=GetClassName(Tables[i])%>> <%=GetClassName(Tables[i])%>Context { get; set; }
+<%}%>
+#endregion
+
+#region 数据工厂
+<%
+for(int i=0;i<Tables.Count;i++){
+%>
+container.RegisterType<I<%=GetClassName(Tables[i])%>Repository, <%=GetClassName(Tables[i])%>Repository>(new TransientLifetimeManager());
+<%}%>
+#endregion
+
+<%
+for(int i=0;i<Tables.Count;i++){
+%>
+builder.RegisterType<<%=GetClassName(Tables[i])%>Repository>().As<I<%=GetClassName(Tables[i])%>Repository>().InstancePerLifetimeScope();
+<%}%>
+
+
+
+
+
+
+
+

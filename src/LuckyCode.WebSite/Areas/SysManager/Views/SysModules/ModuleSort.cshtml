@@ -1,0 +1,70 @@
+﻿@using System.Threading.Tasks
+@using LuckyCode.ViewModels.SiteManager
+@model List<LuckyCode.ViewModels.SiteManager.SysModuleSortViewModel>
+    @{
+        ViewBag.Title = "模块排序";
+    }
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                模块排序
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/SysManager/Home"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li class="active">模块排序</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+
+                        </div>
+                        <div class="box-body">
+                            <div class="dd" id="nestable">
+                                <ol class="dd-list">
+                                    @foreach (var m in Model)
+                                    {
+                                        <li class="dd-item" data-id="@m.Id">
+                                            <div class="dd-handle">@m.ModuleName</div>
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-offset-3">
+                                <button type="button" id="moduleSortButton" class="btn btn-flat btn-success btn-padding">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    @section scripts{
+
+        <script type="text/javascript" src="~/lib/nestable/jquery.nestable.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#nestable").nestable();
+                $("#moduleSortButton").click(function () {
+                    var s = $('#nestable').nestable('serialize');
+                    $.post("/SysManager/SysModules/ModuleSort", { Items: s }, function (data) {
+                        if (data == true) {
+                            layer.alert("排序成功");
+                        }
+                    });
+                    console.log(s);
+                });
+            });
+        </script>
+    }
+
+
